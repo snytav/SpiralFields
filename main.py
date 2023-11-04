@@ -287,7 +287,65 @@ def get_spiral_fields():
         draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
         draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
 
-    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral
+    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace
+
+class CylindricalField:
+    def __init__(self):
+        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace = get_spiral_fields()
+        self.Er  = Er
+        self.Eth = Eth
+        self.Ez  = Ez
+        self.Br  = Br
+        self.Bth = Bth
+        self.Bz  = Bz
+        self.r_linspace     = r_linspace
+        self.theta_linspace = theta_linspace
+        self.z_linspace     = z_linspace
+        self.x0 = np.zeros(3)
+
+    def getR(self):
+        return self.r_linspace[-1]
+
+    def get_grid_step(self):
+        h_r  = self.r_linspace[1]     - self.r_linspace[0]
+        h_th = self.theta_linspace[1] - self.theta_linspace[0]
+        h_z = self.z_linspace[1]      - self.z_linspace[0]
+        return np.array([h_r,h_th,h_z])
+
+
+
+    def get_field(self,r,th,z):
+        from push_cylindrical import get_polar_field_2D, XtoL
+        xcyl = np.array([r, th, z])
+        dh = self.get_grid_step()
+        lc = XtoL(xcyl, self.x0, dh)
+        dr = dh[0]
+
+
+        er = get_polar_field_2D(lc, r, dr, self.Er)
+        et = get_polar_field_2D(lc, r, dr, self.Eth)
+        ez = get_polar_field_2D(lc, r, dr, self.Ez)
+        br = get_polar_field_2D(lc, r, dr, self.Br)
+        bt = get_polar_field_2D(lc, r, dr, self.Bth)
+        bz = get_polar_field_2D(lc, r, dr, self.Bz)
+        return er,et,ez,br,bt,bz
+    def draw_fields(self):
+        from cyl_plot import draw_cylidrical_field
+        draw_cylidrical_field(self.Er, self.r_linspace, self.theta_linspace, self.z_linspace, "Er")
+        draw_cylidrical_field(self.Br, self.r_linspace, self.theta_linspace, self.z_linspace, "Br")
+
+        draw_cylidrical_field(self.Eth, self.r_linspace, self.theta_linspace, self.z_linspace, "Eth")
+        draw_cylidrical_field(self.Bth, self.r_linspace, self.theta_linspace, self.z_linspace, "Bth")
+
+        draw_cylidrical_field(self.Ez, self.r_linspace, self.theta_linspace, self.z_linspace, "Ez")
+        draw_cylidrical_field(self.Bz, self.r_linspace, self.theta_linspace, self.z_linspace, "Bz")
+
 
 if __name__ == '__main__':
-        Er,Eth,Ez,Br,Bth,Bz = get_spiral_fields()
+     cf = CylindricalField()
+     er,et,ez,br,bt,bz = cf.get_field(0.1,0.1,0.1)
+     cf.draw_fields()
+
+
+
+
