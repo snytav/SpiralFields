@@ -202,7 +202,6 @@ def get_spiral_fields():
 
     AthetaSum = Atheta_1 + Atheta_2
 
-
     ### Er
     derivative_Atheta_r = 0.0
     multiplier = 0.0
@@ -260,45 +259,39 @@ def get_spiral_fields():
     # Vr_full, Vtheta_full, Vz_full = compute_V(Er_full, Etheta_full, Ez_full, Br_full, Btheta_full, Bz_full)
 
     component_title = ['r', 'theta', 'z']
-    # отрисовка A
-    amin = np.min(AthetaSum)
-    amax = np.max(AthetaSum)
-    draw_3d(AthetaSum, vmin=amin, vmax=amax, title="Ath")
-    draw_rectangle_slice(AthetaSum, vmin=amin, vmax=amax, title="Ath")
-    draw_circle_slice(AthetaSum, 0.5, vmin=amin, vmax=amax)
+
     # Отрисовка E
     for i, E in enumerate([Er_spiral, Etheta_spiral, Ez_spiral]):
         title = component_title[i]
         bmin = E.min()
         bmax = E.max()
-        draw_3d(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
-        draw_rectangle_slice(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
-        draw_circle_slice(E, 0.5, vmin=bmin, vmax=bmax)
+        #draw_3d(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
+        #draw_rectangle_slice(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
+        #draw_circle_slice(E, 0.5, vmin=bmin, vmax=bmax)
 
     # Отрисовка B
     for i, B in enumerate([Br_spiral, Btheta_spiral, Bz_spiral]):
         title = component_title[i]
         bmin = B.min()
         bmax = B.max()
-        draw_3d(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_3d' + '_' + str(C))
-        draw_rectangle_slice(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_rect' + '_' + str(C))
-        draw_circle_slice(B, 0.5, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_circle' + '_' + str(C))
+        #draw_3d(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_3d' + '_' + str(C))
+        #draw_rectangle_slice(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_rect' + '_' + str(C))
+        #draw_circle_slice(B, 0.5, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_circle' + '_' + str(C))
 
     # Отрисовка V
     for i, V in enumerate([Vr_spiral, Vtheta_spiral, Vz_spiral]):
         title = component_title[i]
         vmin = V.min()
         vmax = V.max()
-        draw_3d(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_3d' + '_' + str(C))
-        draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
-        draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
+        #draw_3d(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_3d' + '_' + str(C))
+        #draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
+        #draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
 
-    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace,AthetaSum
+    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace
 
 class CylindricalField:
     def __init__(self):
-        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace,Atheta = get_spiral_fields()
-        self.At  = Atheta
+        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace = get_spiral_fields()
         self.Er  = Er
         self.Eth = Eth
         self.Ez  = Ez
@@ -335,27 +328,23 @@ class CylindricalField:
         br = get_polar_field_2D(lc, r, dr, self.Br)
         bt = get_polar_field_2D(lc, r, dr, self.Bth)
         bz = get_polar_field_2D(lc, r, dr, self.Bz)
-        at = get_polar_field_2D(lc, r, dr, self.Ath)
-        return er,et,ez,br,bt,bz,at
+        return er,et,ez,br,bt,bz
     def draw_fields(self):
         from cyl_plot import draw_cylidrical_field
-        # draw_cylidrical_field(self.Er, self.r_linspace, self.theta_linspace, self.z_linspace, "Er")
-        # draw_cylidrical_field(self.Br, self.r_linspace, self.theta_linspace, self.z_linspace, "Br")
-        #
-        # draw_cylidrical_field(self.Eth, self.r_linspace, self.theta_linspace, self.z_linspace, "Eth")
-        # draw_cylidrical_field(self.Bth, self.r_linspace, self.theta_linspace, self.z_linspace, "Bth")
-        #
-        # draw_cylidrical_field(self.Ez, self.r_linspace, self.theta_linspace, self.z_linspace, "Ez")
-        # draw_cylidrical_field(self.Bz, self.r_linspace, self.theta_linspace, self.z_linspace, "Bz")
+        draw_cylidrical_field(self.Er, self.r_linspace, self.theta_linspace, self.z_linspace, "Er")
+        draw_cylidrical_field(self.Br, self.r_linspace, self.theta_linspace, self.z_linspace, "Br")
 
-        draw_cylidrical_field(self.Ath, self.r_linspace, self.theta_linspace, self.z_linspace, "Ath")
+        draw_cylidrical_field(self.Eth, self.r_linspace, self.theta_linspace, self.z_linspace, "Eth")
+        draw_cylidrical_field(self.Bth, self.r_linspace, self.theta_linspace, self.z_linspace, "Bth")
+
+        draw_cylidrical_field(self.Ez, self.r_linspace, self.theta_linspace, self.z_linspace, "Ez")
+        draw_cylidrical_field(self.Bz, self.r_linspace, self.theta_linspace, self.z_linspace, "Bz")
 
 
 if __name__ == '__main__':
      cf = CylindricalField()
-     er,et,ez,br,bt,bz,at = cf.get_field(0.1,0.1,0.1)
+     er,et,ez,br,bt,bz = cf.get_field(0.1,0.1,0.1)
      cf.draw_fields()
-     qq = 0
 
 
 
