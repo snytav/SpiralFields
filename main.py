@@ -45,7 +45,7 @@ def draw_3d(values, title='Untitled', vmin=None, vmax=None, ax_3d=None, save=Non
     p = ax_3d.scatter(Z_3d, Y_3d, X_3d, c=values, s=10, cmap='plasma')  # norm=matplotlib.colors.LogNorm()
     # ax_3d.set_title(title, fontsize=14)
     ax_3d.set_xlabel('z', fontsize=14)
-    ax.set_title(title)
+    ax_3d.set_title(title,fontsize=18)
     if save is not None:
         plt.savefig(save + '.png')
 
@@ -267,7 +267,7 @@ def get_spiral_fields():
     amax = np.max(AthetaSum)
     draw_3d(AthetaSum, vmin=amin, vmax=amax, title="Ath")
     draw_rectangle_slice(AthetaSum, vmin=amin, vmax=amax, title="Ath")
-    draw_circle_slice(AthetaSum, 0.5, vmin=amin, vmax=amax)
+    draw_circle_slice(AthetaSum, 0.5, vmin=amin, vmax=amax,title='Ath')
     # Отрисовка E
     # for i, E in enumerate([Er_spiral, Etheta_spiral, Ez_spiral]):
     #     title = component_title[i]
@@ -300,7 +300,7 @@ def get_spiral_fields():
 class CylindricalField:
     def __init__(self):
         Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace,Atheta = get_spiral_fields()
-        self.At  = Atheta
+        self.Ath  = Atheta
         self.Er  = Er
         self.Eth = Eth
         self.Ez  = Ez
@@ -352,11 +352,12 @@ class CylindricalField:
 
         draw_cylidrical_field(self.Ath, self.r_linspace, self.theta_linspace, self.z_linspace, "Ath")
 
-
+from symbolic import get_symbolic_field
 if __name__ == '__main__':
      cf = CylindricalField()
      er,et,ez,br,bt,bz,at = cf.get_field(0.1,0.1,0.1)
      cf.draw_fields()
+     f = get_symbolic_field()
      qq = 0
 
 

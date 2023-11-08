@@ -10,6 +10,12 @@ def volume_field_plot(s,name):
     v = volume_slice(s, plane_orientation='x_axes', slice_index=int(s.shape[0]/2))
     v = volume_slice(s, plane_orientation='y_axes', slice_index=int(s.shape[1] / 2))
     v = volume_slice(s, plane_orientation='z_axes', slice_index=int(s.shape[2] / 2))
+
+    # magnitude = pipeline.extract_vector_norm(s)
+    # pipeline.iso_surface(magnitude, contours=[1.9, 0.5])
+
+
+
     outline()
     title(name)
     # fig.renwin.isometric_view()
