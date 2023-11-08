@@ -45,7 +45,7 @@ def draw_3d(values, title='Untitled', vmin=None, vmax=None, ax_3d=None, save=Non
     p = ax_3d.scatter(Z_3d, Y_3d, X_3d, c=values, s=10, cmap='plasma')  # norm=matplotlib.colors.LogNorm()
     # ax_3d.set_title(title, fontsize=14)
     ax_3d.set_xlabel('z', fontsize=14)
-
+    ax.set_title(title)
     if save is not None:
         plt.savefig(save + '.png')
 
@@ -74,7 +74,7 @@ def draw_circle_slice(values, at_z, title='Untitled', colorbar_title='Variable',
     p = ax.pcolor(tg_2dp, rg_2dp, values[:, :, closest_index], cmap='plasma', vmin=vmin, vmax=vmax)
     cb = fig.colorbar(p, ax=ax)
     # cb.set_label(colorbar_title, fontsize=14)
-
+    ax.set_title(title)
     if save is not None:
         plt.savefig(save + '.png')
 
@@ -91,6 +91,8 @@ def draw_rectangle_slice(values, title='Untitled', colorbar_title='Variable', vm
 
     cb = fig.colorbar(p, ax=ax)
     cb.set_label(colorbar_title, fontsize=14)
+
+    ax.set_title(title)
 
     if save is not None:
         plt.savefig(save + '.png')
@@ -267,31 +269,31 @@ def get_spiral_fields():
     draw_rectangle_slice(AthetaSum, vmin=amin, vmax=amax, title="Ath")
     draw_circle_slice(AthetaSum, 0.5, vmin=amin, vmax=amax)
     # Отрисовка E
-    for i, E in enumerate([Er_spiral, Etheta_spiral, Ez_spiral]):
-        title = component_title[i]
-        bmin = E.min()
-        bmax = E.max()
-        draw_3d(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
-        draw_rectangle_slice(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
-        draw_circle_slice(E, 0.5, vmin=bmin, vmax=bmax)
+    # for i, E in enumerate([Er_spiral, Etheta_spiral, Ez_spiral]):
+    #     title = component_title[i]
+    #     bmin = E.min()
+    #     bmax = E.max()
+    #     draw_3d(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
+    #     draw_rectangle_slice(E, vmin=bmin, vmax=bmax, title="E" + title + "spiral")
+    #     draw_circle_slice(E, 0.5, vmin=bmin, vmax=bmax)
 
     # Отрисовка B
-    for i, B in enumerate([Br_spiral, Btheta_spiral, Bz_spiral]):
-        title = component_title[i]
-        bmin = B.min()
-        bmax = B.max()
-        draw_3d(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_3d' + '_' + str(C))
-        draw_rectangle_slice(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_rect' + '_' + str(C))
-        draw_circle_slice(B, 0.5, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_circle' + '_' + str(C))
+    # for i, B in enumerate([Br_spiral, Btheta_spiral, Bz_spiral]):
+    #     title = component_title[i]
+    #     bmin = B.min()
+    #     bmax = B.max()
+    #     draw_3d(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_3d' + '_' + str(C))
+    #     draw_rectangle_slice(B, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_rect' + '_' + str(C))
+    #     draw_circle_slice(B, 0.5, vmin=bmin, vmax=bmax, save='B' + title + '_spiral_circle' + '_' + str(C))
 
     # Отрисовка V
-    for i, V in enumerate([Vr_spiral, Vtheta_spiral, Vz_spiral]):
-        title = component_title[i]
-        vmin = V.min()
-        vmax = V.max()
-        draw_3d(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_3d' + '_' + str(C))
-        draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
-        draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
+    # for i, V in enumerate([Vr_spiral, Vtheta_spiral, Vz_spiral]):
+    #     title = component_title[i]
+    #     vmin = V.min()
+    #     vmax = V.max()
+    #     draw_3d(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_3d' + '_' + str(C))
+    #     draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
+    #     draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
 
     return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace,AthetaSum
 
