@@ -193,6 +193,9 @@ def get_spiral_fields():
     Az = -Az
 
     Atheta_1 = B_0 * rg_3d / 2
+    from symbolic import get_symbolic_field,func_rz
+    Ath_sym = get_symbolic_field()
+    # a = func_rz()
 
     v1 = -Bc / kc
     v2 = np.sin(kc * (zg_3d - z0))

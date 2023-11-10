@@ -203,6 +203,7 @@ def get_spiral_fields():
     Atheta_2 = v1 * v2 * v3
 
     AthetaSum = Atheta_1 + Atheta_2
+    from symbolic import get_symbolic_field,func_rz
 
 
     ### Er
@@ -265,9 +266,9 @@ def get_spiral_fields():
     # отрисовка A
     amin = np.min(AthetaSum)
     amax = np.max(AthetaSum)
-    draw_3d(AthetaSum, vmin=amin, vmax=amax, title="Ath")
-    draw_rectangle_slice(AthetaSum, vmin=amin, vmax=amax, title="Ath")
-    draw_circle_slice(AthetaSum, 0.5, vmin=amin, vmax=amax,title='Ath')
+    # draw_3d(AthetaSum, vmin=amin, vmax=amax, title="Ath")
+    # draw_rectangle_slice(AthetaSum, vmin=amin, vmax=amax, title="Ath")
+    # draw_circle_slice(AthetaSum, 0.5, vmin=amin, vmax=amax,title='Ath')
     # Отрисовка E
     # for i, E in enumerate([Er_spiral, Etheta_spiral, Ez_spiral]):
     #     title = component_title[i]
