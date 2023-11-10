@@ -1,4 +1,5 @@
 import numpy as np
+from spiral_field import CylindricalField
 
 from matplotlib.animation import ArtistAnimation
 
@@ -298,62 +299,62 @@ def get_spiral_fields():
 
     return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace,AthetaSum,Atheta_1,Atheta_2
 
-class CylindricalField:
-    def __init__(self):
-        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace,Atheta,Ath1,Ath2 = get_spiral_fields()
-        self.Ath  = Atheta
-        self.Ath1 = Ath1
-        self.Ath2 = Ath2
-        self.Er  = Er
-        self.Eth = Eth
-        self.Ez  = Ez
-        self.Br  = Br
-        self.Bth = Bth
-        self.Bz  = Bz
-        self.r_linspace     = r_linspace
-        self.theta_linspace = theta_linspace
-        self.z_linspace     = z_linspace
-        self.x0 = np.zeros(3)
-
-    def getR(self):
-        return self.r_linspace[-1]
-
-    def get_grid_step(self):
-        h_r  = self.r_linspace[1]     - self.r_linspace[0]
-        h_th = self.theta_linspace[1] - self.theta_linspace[0]
-        h_z = self.z_linspace[1]      - self.z_linspace[0]
-        return np.array([h_r,h_th,h_z])
-
-
-
-    def get_field(self,r,th,z):
-        from push_cylindrical import get_polar_field_2D, XtoL
-        xcyl = np.array([r, th, z])
-        dh = self.get_grid_step()
-        lc = XtoL(xcyl, self.x0, dh)
-        dr = dh[0]
-
-
-        er = get_polar_field_2D(lc, r, dr, self.Er)
-        et = get_polar_field_2D(lc, r, dr, self.Eth)
-        ez = get_polar_field_2D(lc, r, dr, self.Ez)
-        br = get_polar_field_2D(lc, r, dr, self.Br)
-        bt = get_polar_field_2D(lc, r, dr, self.Bth)
-        bz = get_polar_field_2D(lc, r, dr, self.Bz)
-        at = get_polar_field_2D(lc, r, dr, self.Ath)
-        return er,et,ez,br,bt,bz,at
-    def draw_fields(self):
-        from cyl_plot import draw_cylidrical_field
-        # draw_cylidrical_field(self.Er, self.r_linspace, self.theta_linspace, self.z_linspace, "Er")
-        # draw_cylidrical_field(self.Br, self.r_linspace, self.theta_linspace, self.z_linspace, "Br")
-        #
-        # draw_cylidrical_field(self.Eth, self.r_linspace, self.theta_linspace, self.z_linspace, "Eth")
-        # draw_cylidrical_field(self.Bth, self.r_linspace, self.theta_linspace, self.z_linspace, "Bth")
-        #
-        # draw_cylidrical_field(self.Ez, self.r_linspace, self.theta_linspace, self.z_linspace, "Ez")
-        # draw_cylidrical_field(self.Bz, self.r_linspace, self.theta_linspace, self.z_linspace, "Bz")
-
-        draw_cylidrical_field(self.Ath, self.r_linspace, self.theta_linspace, self.z_linspace, "Ath")
+# class CylindricalField:
+#     def __init__(self):
+#         Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace,Atheta,Ath1,Ath2 = get_spiral_fields()
+#         self.Ath  = Atheta
+#         self.Ath1 = Ath1
+#         self.Ath2 = Ath2
+#         self.Er  = Er
+#         self.Eth = Eth
+#         self.Ez  = Ez
+#         self.Br  = Br
+#         self.Bth = Bth
+#         self.Bz  = Bz
+#         self.r_linspace     = r_linspace
+#         self.theta_linspace = theta_linspace
+#         self.z_linspace     = z_linspace
+#         self.x0 = np.zeros(3)
+#
+#     def getR(self):
+#         return self.r_linspace[-1]
+#
+#     def get_grid_step(self):
+#         h_r  = self.r_linspace[1]     - self.r_linspace[0]
+#         h_th = self.theta_linspace[1] - self.theta_linspace[0]
+#         h_z = self.z_linspace[1]      - self.z_linspace[0]
+#         return np.array([h_r,h_th,h_z])
+#
+#
+#
+#     def get_field(self,r,th,z):
+#         from push_cylindrical import get_polar_field_2D, XtoL
+#         xcyl = np.array([r, th, z])
+#         dh = self.get_grid_step()
+#         lc = XtoL(xcyl, self.x0, dh)
+#         dr = dh[0]
+#
+#
+#         er = get_polar_field_2D(lc, r, dr, self.Er)
+#         et = get_polar_field_2D(lc, r, dr, self.Eth)
+#         ez = get_polar_field_2D(lc, r, dr, self.Ez)
+#         br = get_polar_field_2D(lc, r, dr, self.Br)
+#         bt = get_polar_field_2D(lc, r, dr, self.Bth)
+#         bz = get_polar_field_2D(lc, r, dr, self.Bz)
+#         at = get_polar_field_2D(lc, r, dr, self.Ath)
+#         return er,et,ez,br,bt,bz,at
+#     def draw_fields(self):
+#         from cyl_plot import draw_cylidrical_field
+#         # draw_cylidrical_field(self.Er, self.r_linspace, self.theta_linspace, self.z_linspace, "Er")
+#         # draw_cylidrical_field(self.Br, self.r_linspace, self.theta_linspace, self.z_linspace, "Br")
+#         #
+#         # draw_cylidrical_field(self.Eth, self.r_linspace, self.theta_linspace, self.z_linspace, "Eth")
+#         # draw_cylidrical_field(self.Bth, self.r_linspace, self.theta_linspace, self.z_linspace, "Bth")
+#         #
+#         # draw_cylidrical_field(self.Ez, self.r_linspace, self.theta_linspace, self.z_linspace, "Ez")
+#         # draw_cylidrical_field(self.Bz, self.r_linspace, self.theta_linspace, self.z_linspace, "Bz")
+#
+#         draw_cylidrical_field(self.Ath, self.r_linspace, self.theta_linspace, self.z_linspace, "Ath")
 
 from symbolic import get_symbolic_field
 from symbolic import func_rz
