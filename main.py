@@ -295,12 +295,14 @@ def get_spiral_fields():
     #     draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
     #     draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
 
-    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace,AthetaSum
+    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace,AthetaSum,Atheta_1,Atheta_2
 
 class CylindricalField:
     def __init__(self):
-        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace,Atheta = get_spiral_fields()
+        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace,Atheta,Ath1,Ath2 = get_spiral_fields()
         self.Ath  = Atheta
+        self.Ath1 = Ath1
+        self.Ath2 = Ath2
         self.Er  = Er
         self.Eth = Eth
         self.Ez  = Ez
@@ -353,11 +355,14 @@ class CylindricalField:
         draw_cylidrical_field(self.Ath, self.r_linspace, self.theta_linspace, self.z_linspace, "Ath")
 
 from symbolic import get_symbolic_field
+from symbolic import func_rz
 if __name__ == '__main__':
      cf = CylindricalField()
      er,et,ez,br,bt,bz,at = cf.get_field(0.1,0.1,0.1)
      cf.draw_fields()
      f = get_symbolic_field()
+     ath = cf.Ath[3][3][3]
+     f_a = func_rz(f,cf.r_linspace[3],cf.z_linspace[3])
      qq = 0
 
 

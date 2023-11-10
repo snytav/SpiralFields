@@ -287,11 +287,11 @@ def get_spiral_fields():
         #draw_rectangle_slice(V, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_rect' + '_' + str(C))
         #draw_circle_slice(V, 0.5, vmin=vmin, vmax=vmax, save='V' + title + '_spiral_circle' + '_' + str(C))
 
-    return Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace
+    return Atheta_1,Atheta_2,AthetaSum,Er_spiral,Etheta_spiral,Ez_spiral,Br_spiral,Btheta_spiral,Bz_spiral,r_linspace, theta_linspace, z_linspace
 
 class CylindricalField:
     def __init__(self):
-        Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace = get_spiral_fields()
+        Ath1,Ath2,Ath,Er, Eth, Ez, Br, Bth, Bz, r_linspace, theta_linspace, z_linspace = get_spiral_fields()
         self.Er  = Er
         self.Eth = Eth
         self.Ez  = Ez
@@ -302,6 +302,9 @@ class CylindricalField:
         self.theta_linspace = theta_linspace
         self.z_linspace     = z_linspace
         self.x0 = np.zeros(3)
+        self.Ath1 = Ath1
+        self.Ath2 = Ath2
+        self.Ath = Ath
 
     def getR(self):
         return self.r_linspace[-1]
