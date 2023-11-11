@@ -193,9 +193,7 @@ def get_spiral_fields():
     Az = -Az
 
     Atheta_1 = B_0 * rg_3d / 2
-    from symbolic import get_symbolic_field,func_rz
-    Ath_sym = get_symbolic_field()
-    # a = func_rz()
+    from symbolic import Atheta_2_sym,Atheta_2_subs,Atheta_1_sym,Atheta_1_subs
 
     v1 = -Bc / kc
     v2 = np.sin(kc * (zg_3d - z0))
@@ -204,6 +202,9 @@ def get_spiral_fields():
     Atheta_2 = v1 * v2 * v3
 
     AthetaSum = Atheta_1 + Atheta_2
+
+    at2 = Atheta_2_subs(Atheta_2_sym(1), kc*r_linspace[1], z_linspace[1], 0.0, kc, Bc)
+    at1 = Atheta_1_subs(Atheta_1_sym(),B_0,r_linspace[1])
 
     ### Er
     derivative_Atheta_r = 0.0
@@ -334,7 +335,8 @@ class CylindricalField:
         br = get_polar_field_2D(lc, r, dr, self.Br)
         bt = get_polar_field_2D(lc, r, dr, self.Bth)
         bz = get_polar_field_2D(lc, r, dr, self.Bz)
-        return er,et,ez,br,bt,bz
+        at = get_polar_field_2D(lc, r, dr, self.Ath)
+        return er,et,ez,br,bt,bz,at
     def draw_fields(self):
         from cyl_plot import draw_cylidrical_field
         draw_cylidrical_field(self.Er, self.r_linspace, self.theta_linspace, self.z_linspace, "Er")

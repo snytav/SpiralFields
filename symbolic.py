@@ -1,9 +1,29 @@
 from sympy import *
 from sympy.plotting import plot
-x,n, p=var('x,n, p')
+# x,n, p=var('x,n, p')
+from sympy.functions import besseli
+#from spiral_field import kc,Bc
 
-def besselj(p,x):
-    return  summation(((-1)**n*x**(2*n+p))/(factorial(n)*gamma(n+p+1)*2**(2*n+p)),[n,0,oo])
+def Atheta_2_sym(m):
+    r,z,kc,z0,Bc = symbols('r z kc z0 Bc')
+    Ath = -Bc/kc*besseli(m,r)*sin(kc*(z-z0))
+    return Ath
+
+def Atheta_2_subs(Ath,r_n,z_n,z0_n,kc_num,Bc_num):
+    r,z,kc,z0,Bc = symbols('r z kc z0 Bc')
+    Ath_n = Ath.subs(r,r_n).subs(z,z_n).subs(z0,z0_n).subs(kc,kc_num).subs(Bc,Bc_num).evalf()
+    return Ath_n
+
+def Atheta_1_sym():
+    r,B0 = symbols('r B0')
+    Ath = B0*r/2
+    return Ath
+
+def Atheta_1_subs(Ath,B0_n,r_n):
+    r, B0 = symbols('r B0')
+    Ath_n = Ath.subs(r,r_n).subs(B0,B0_n).evalf()
+    return Ath_n
+
 
 def get_symbolic_field():
     k_numeric = 0.349  # cm^{-1}
