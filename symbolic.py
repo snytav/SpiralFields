@@ -79,6 +79,12 @@ def Ez_spiral_sym():
     f = diff(phi,z)
     return f
 
+def Ez_spiral_subs(w_n, k_n, r_n, z_n,Bc_n,kc_n,z0_n):
+    w, k, r, z,Bc,kc,z0 = symbols('w k r z Bc kc z0')
+    f = Ez_spiral_sym()
+    t = f.subs(r,r_n).subs(z,z_n).subs(Bc,Bc_n).subs(kc,kc_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n)
+    return t.evalf()
+
 
 if __name__ == '__main__':
     p1 = plot(besselj(0, x), (x, -20, 20), line_color='b', title=' $' + st + '$', show=False)
