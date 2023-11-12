@@ -60,7 +60,7 @@ def func_rz(expr,r_val,z_val):
     return f.evalf()
 
 def Atheta_spiral_sym():
-    return Atheta_1_sym()
+    return Atheta_2_sym()
 
 def phi_spiral_sym():
     w,k,r = symbols('w k r')
@@ -72,6 +72,13 @@ def Er_spiral_sym():
     phi = phi_spiral_sym()
     f = diff(phi,r)
     return f
+
+def Ez_spiral_sym():
+    w, k, r,z = symbols('w k r z')
+    phi = phi_spiral_sym()
+    f = diff(phi,z)
+    return f
+
 
 if __name__ == '__main__':
     p1 = plot(besselj(0, x), (x, -20, 20), line_color='b', title=' $' + st + '$', show=False)

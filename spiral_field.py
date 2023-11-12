@@ -262,6 +262,8 @@ def get_spiral_fields():
 
     Etheta_spiral = np.zeros((50, 60, 50))
     Ez_spiral = w / k * rg_3d * derivative_Atheta_z
+    from symbolic import  Ez_spiral_sym
+    Ez_ss = Ez_spiral_sym()
 
     Br_spiral, Btheta_spiral, Bz_spiral = compute_B(zeros, zeros, zeros, derivative_fs_r, derivative_fs_theta,
                                                     derivative_fs_z)
