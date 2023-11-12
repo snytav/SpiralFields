@@ -1,4 +1,5 @@
 import numpy as np
+#TODO^ make spiral component of Atheta - detected as commented codenamed "fc"
 
 from matplotlib.animation import ArtistAnimation
 
@@ -137,7 +138,10 @@ def get_spiral_fields():
 
     plt.rcParams.update({'figure.max_open_warning': 0})
 
-    # fc = Bc / kc * np.cos(kc * (zg_3d - z0)) * iv(0, kc * rg_3d)
+    fc = Bc / kc * np.cos(kc * (zg_3d - z0)) * iv(0, kc * rg_3d)
+    from symbolic import Atheta_spiral_sym,Atheta_spiral_subs
+    Ath_sp = Atheta_spiral_sym()
+    ath_num = Atheta_spiral_subs(Ath_sp,kc,Bc,r_linspace[1],z_linspace[1],z0)
     fs = np.zeros((50, 60, 50))
 
     for m in range(1, 6):
@@ -203,7 +207,7 @@ def get_spiral_fields():
 
     AthetaSum = Atheta_1 + Atheta_2
 
-    at2 = Atheta_2_subs(Atheta_2_sym(1), kc*r_linspace[1], z_linspace[1], 0.0, kc, Bc)
+    at2 = Atheta_2_subs(Atheta_2_sym(), kc*r_linspace[1], z_linspace[1], 0.0, kc, Bc)
     at1 = Atheta_1_subs(Atheta_1_sym(),B_0,r_linspace[1])
 
     ### Er
@@ -238,6 +242,10 @@ def get_spiral_fields():
     phi_corrugation = w / k * (rg_3d * B_0 * rg_3d / 2 + Az / k)
     phi_spiral = w / k * (rg_3d * AthetaSum)
     phi_full = w / k * (rg_3d * AthetaSum + Az / k)
+
+    from symbolic import phi_spiral_sym
+    phi_ss = phi_spiral_sym()
+
 
     # Er_full     = w / k * (AthetaSum + rg_3d * derivative_Atheta_r + 1 / k * derivative_Az_r)
     # Etheta_full = w / (k ** 2) * derivative_Az_theta

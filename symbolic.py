@@ -4,7 +4,8 @@ from sympy.plotting import plot
 from sympy.functions import besseli
 #from spiral_field import kc,Bc
 
-def Atheta_2_sym(m):
+def Atheta_2_sym():
+    m = 1
     r,z,kc,z0,Bc = symbols('r z kc z0 Bc')
     Ath = -Bc/kc*besseli(m,r)*sin(kc*(z-z0))
     return Ath
@@ -13,6 +14,17 @@ def Atheta_2_subs(Ath,r_n,z_n,z0_n,kc_num,Bc_num):
     r,z,kc,z0,Bc = symbols('r z kc z0 Bc')
     Ath_n = Ath.subs(r,r_n).subs(z,z_n).subs(z0,z0_n).subs(kc,kc_num).subs(Bc,Bc_num).evalf()
     return Ath_n
+
+def Atheta_spiral_sym():
+    #  Bc / kc * np.cos(kc * (zg_3d - z0)) * iv(0, kc * rg_3d)
+    Bc,kc,z,r,z0,kc = symbols('Bc kc z r z0 kc')
+    f = Bc / kc * cos(kc * (z - z0)) * besseli(0, kc * r)
+    return f
+
+def Atheta_spiral_subs(Ath_sp,kcn,Bcn,r_n,z_n,z0_n):
+    Bc, kc, z, r, z0, kc = symbols('Bc kc z r z0 kc')
+    t = Ath_sp.subs(kc, kcn).subs(Bc, Bcn).subs(r, r_n).subs(z, z_n).subs(z0, z0_n).evalf()
+    return t
 
 def Atheta_1_sym():
     r,B0 = symbols('r B0')
@@ -46,6 +58,11 @@ def func_rz(expr,r_val,z_val):
     r,z = symbols('r z')
     f = expr.subs(r,r_val).subs(z,z_val)
     return f.evalf()
+
+def phi_spiral_sym():
+    w,k,r = symbols('w k r')
+    f = w/k*r*Atheta_1_sym()
+    return f
 
 if __name__ == '__main__':
     p1 = plot(besselj(0, x), (x, -20, 20), line_color='b', title=' $' + st + '$', show=False)
