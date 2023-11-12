@@ -59,9 +59,18 @@ def func_rz(expr,r_val,z_val):
     f = expr.subs(r,r_val).subs(z,z_val)
     return f.evalf()
 
+def Atheta_spiral_sym():
+    return Atheta_1_sym()
+
 def phi_spiral_sym():
     w,k,r = symbols('w k r')
-    f = w/k*r*Atheta_1_sym()
+    f = w/k*r*Atheta_spiral_sym()
+    return f
+
+def Er_spiral_sym():
+    w, k, r = symbols('w k r')
+    phi = phi_spiral_sym()
+    f = diff(phi,r)
     return f
 
 if __name__ == '__main__':

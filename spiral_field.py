@@ -255,7 +255,11 @@ def get_spiral_fields():
     # Etheta_corrugation = w / (k ** 2) * derivative_Az_theta
     # Ez_corrugation     = w / (k ** 2) * derivative_Az_z
 
-    Er_spiral = w / k * (AthetaSum + rg_3d * derivative_Atheta_r)
+    Er_spiral = w / k * (AthetaSum + rg_3d * derivative_Atheta_r) # NOT EXACTLY MATHING ANALYTICAL VALUES
+    # Here Atheta - analytical is just Atheta_1, and in numerical we see AthetaSum !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    from symbolic import Er_spiral_sym,Atheta_spiral_sym
+    Er_ss = Er_spiral_sym()
+
     Etheta_spiral = np.zeros((50, 60, 50))
     Ez_spiral = w / k * rg_3d * derivative_Atheta_z
 
