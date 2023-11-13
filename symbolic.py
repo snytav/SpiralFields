@@ -18,7 +18,7 @@ def Atheta_2_subs(Ath,r_n,z_n,z0_n,kc_num,Bc_num):
 def Atheta_spiral_sym():
     #  Bc / kc * np.cos(kc * (zg_3d - z0)) * iv(0, kc * rg_3d)
     Bc,kc,z,r,z0,kc = symbols('Bc kc z r z0 kc')
-    f = Bc / kc * cos(kc * (z - z0)) * besseli(0, kc * r)
+    f = Bc*cos(kc*(z - z0))*besseli(0, kc*r)/kc
     return f
 
 def Atheta_spiral_subs(Ath_sp,kcn,Bcn,r_n,z_n,z0_n):
@@ -59,8 +59,6 @@ def func_rz(expr,r_val,z_val):
     f = expr.subs(r,r_val).subs(z,z_val)
     return f.evalf()
 
-def Atheta_spiral_sym():
-    return Atheta_2_sym()
 
 def phi_spiral_sym():
     w,k,r = symbols('w k r')
