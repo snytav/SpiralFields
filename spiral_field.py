@@ -207,6 +207,8 @@ def get_spiral_fields():
 
     AthetaSum = Atheta_1 + Atheta_2
 
+    at1_num = Atheta_1[1][1][1]
+    at2_num = Atheta_2[1][1][1]
     at2 = Atheta_2_subs(Atheta_2_sym(), kc*r_linspace[1], z_linspace[1], 0.0, kc, Bc)
     at1 = Atheta_1_subs(Atheta_1_sym(),B_0,r_linspace[1])
 
@@ -243,9 +245,9 @@ def get_spiral_fields():
     phi_spiral = w / k * (rg_3d * AthetaSum)
     phi_full = w / k * (rg_3d * AthetaSum + Az / k)
 
-    from symbolic import phi_spiral_sym
+    from symbolic import phi_spiral_sym,phi_spiral_subs
     phi_ss = phi_spiral_sym()
-
+    p11 = phi_spiral_subs(kc,Bc,r_linspace[1],z_linspace[1],z0,w,k)
 
     # Er_full     = w / k * (AthetaSum + rg_3d * derivative_Atheta_r + 1 / k * derivative_Az_r)
     # Etheta_full = w / (k ** 2) * derivative_Az_theta

@@ -65,6 +65,12 @@ def phi_spiral_sym():
     f = w/k*r*Atheta_spiral_sym()
     return f
 
+def phi_spiral_subs(kcn,Bcn,r_n,z_n,z0_n,w_n,k_n):
+    Bc, kc, z, r, z0, kc,k,w = symbols('Bc kc z r z0 kc k w')
+    f = phi_spiral_sym()
+    t = f.subs(kc, kcn).subs(Bc, Bcn).subs(r, r_n).subs(z,z_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n).evalf()
+    return t
+
 def Er_spiral_sym():
     w, k, r = symbols('w k r')
     phi = phi_spiral_sym()
