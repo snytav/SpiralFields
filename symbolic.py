@@ -62,13 +62,14 @@ def func_rz(expr,r_val,z_val):
 
 def phi_spiral_sym():
     w,k,r = symbols('w k r')
-    f = w/k*r*Atheta_spiral_sym()
+    # f = w/k*r*Atheta_spiral_sym()
+    f = w/k*r*(Atheta_1_sym()+Atheta_2_sym())
     return f
 
-def phi_spiral_subs(kcn,Bcn,r_n,z_n,z0_n,w_n,k_n):
-    Bc, kc, z, r, z0, kc,k,w = symbols('Bc kc z r z0 kc k w')
+def phi_spiral_subs(kcn,Bcn,r_n,z_n,z0_n,w_n,k_n,B0_n):
+    Bc, kc, z, r, z0, kc,k,w,B0 = symbols('Bc kc z r z0 kc k w B0')
     f = phi_spiral_sym()
-    t = f.subs(kc, kcn).subs(Bc, Bcn).subs(r, r_n).subs(z,z_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n).evalf()
+    t = f.subs(kc, kcn).subs(Bc, Bcn).subs(r, r_n).subs(z,z_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n).subs(B0,B0_n).evalf()
     return t
 
 def Er_spiral_sym():

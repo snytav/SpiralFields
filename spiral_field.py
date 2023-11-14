@@ -1,6 +1,6 @@
 import numpy as np
-#TODO^ make spiral component of Atheta - detected as commented codenamed "fc"
-
+#TODO^ make Atheta_Sum_subs(), verufy AthetaSum
+#TODO and the following expression for phi_spiral
 from matplotlib.animation import ArtistAnimation
 
 import matplotlib
@@ -247,7 +247,8 @@ def get_spiral_fields():
 
     from symbolic import phi_spiral_sym,phi_spiral_subs
     phi_ss = phi_spiral_sym()
-    p11 = phi_spiral_subs(kc,Bc,r_linspace[1],z_linspace[1],z0,w,k)
+    p11 = phi_spiral_subs(kc,Bc,r_linspace[1],z_linspace[1],z0,w,k,B_0)
+    p11_n= phi_spiral[1][1][1]
 
     # Er_full     = w / k * (AthetaSum + rg_3d * derivative_Atheta_r + 1 / k * derivative_Az_r)
     # Etheta_full = w / (k ** 2) * derivative_Az_theta
