@@ -209,8 +209,15 @@ def get_spiral_fields():
 
     at1_num = Atheta_1[1][1][1]
     at2_num = Atheta_2[1][1][1]
-    at2 = Atheta_2_subs(Atheta_2_sym(), kc*r_linspace[1], z_linspace[1], 0.0, kc, Bc)
-    at1 = Atheta_1_subs(Atheta_1_sym(),B_0,r_linspace[1])
+    at2 = Atheta_2_subs(r_linspace[1], z_linspace[1], 0.0, kc, Bc)
+    at1 = Atheta_1_subs(B_0,r_linspace[1],z_linspace[1],kc,z0,Bc)
+    dt1 = at1-at1_num
+    dt2 = at2 - at2_num
+    from symbolic import AthetaSum_subs,AthetaSum_sym
+    aths    = AthetaSum_subs(B_0,r_linspace[1],z_linspace[1],z0,kc,Bc)
+    aths_num = AthetaSum[1][1][1]
+    dts = aths - aths_num
+
 
     ### Er
     derivative_Atheta_r = 0.0

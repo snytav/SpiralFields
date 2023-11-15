@@ -7,11 +7,12 @@ from sympy.functions import besseli
 def Atheta_2_sym():
     m = 1
     r,z,kc,z0,Bc = symbols('r z kc z0 Bc')
-    Ath = -Bc/kc*besseli(m,r)*sin(kc*(z-z0))
+    Ath = -Bc/kc*besseli(m,kc*r)*sin(kc*(z-z0))
     return Ath
 
-def Atheta_2_subs(Ath,r_n,z_n,z0_n,kc_num,Bc_num):
+def Atheta_2_subs(r_n,z_n,z0_n,kc_num,Bc_num):
     r,z,kc,z0,Bc = symbols('r z kc z0 Bc')
+    Ath = Atheta_2_sym()
     Ath_n = Ath.subs(r,r_n).subs(z,z_n).subs(z0,z0_n).subs(kc,kc_num).subs(Bc,Bc_num).evalf()
     return Ath_n
 
@@ -31,10 +32,24 @@ def Atheta_1_sym():
     Ath = B0*r/2
     return Ath
 
-def Atheta_1_subs(Ath,B0_n,r_n):
-    r, B0 = symbols('r B0')
+def AthetaSum_sym():
+    f = Atheta_1_sym()+Atheta_2_sym()
+    return f
+
+def Atheta_1_subs(B0_n,r_n,z_n,kc_n,z0_n,Bc_n):
+    # r, B0 = symbols('r B0')
+    r, z, kc, z0, Bc,B0 = symbols('r z kc z0 Bc B0')
+    Ath = Atheta_1_sym()
     Ath_n = Ath.subs(r,r_n).subs(B0,B0_n).evalf()
     return Ath_n
+
+def AthetaSum_subs(B0_n,r_n,z_n,z0_n,kc_n,Bc_num):
+     t1 = Atheta_1_subs(B0_n,r_n,z_n,kc_n,z0_n,B0_n)
+     t2 = Atheta_2_subs(z_n,z_n,z0_n,kc_n,Bc_num)
+     t = t1+t2
+     return t
+
+
 
 
 def get_symbolic_field():
