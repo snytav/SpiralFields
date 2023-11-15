@@ -87,6 +87,18 @@ def phi_spiral_subs(kcn,Bcn,r_n,z_n,z0_n,w_n,k_n,B0_n):
     t = f.subs(kc, kcn).subs(Bc, Bcn).subs(r, r_n).subs(z,z_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n).subs(B0,B0_n).evalf()
     return t
 
+def der_Atheta_r_sym():
+    r = symbols('r')
+    ath = AthetaSum_sym()
+    f = diff(ath,r)
+    return f
+
+def der_Atheta_r_subs(kcn,Bcn,r_n,z_n,z0_n,w_n,k_n,B0_n):
+    Bc, kc, z, r, z0, kc,k,w,B0 = symbols('Bc kc z r z0 kc k w B0')
+    f = diff(der_Atheta_r_sym(),r)
+    t = f.subs(kc, kcn).subs(Bc, Bcn).subs(r, r_n).subs(z,z_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n).subs(B0,B0_n).evalf()
+    return t
+
 def Er_spiral_sym():
     w, k, r = symbols('w k r')
     phi = phi_spiral_sym()
@@ -99,11 +111,19 @@ def Ez_spiral_sym():
     f = diff(phi,z)
     return f
 
+def Er_spiral_subs(w_n, k_n, r_n, z_n,Bc_n,kc_n,z0_n,B0_n):
+    w, k, r, z,Bc,kc,z0,B0 = symbols('w k r z Bc kc z0 B0')
+    f = Er_spiral_sym()
+    t = f.subs(r,r_n).subs(z,z_n).subs(Bc,Bc_n).subs(kc,kc_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n).subs(B0,B0_n)
+    return t.evalf()
+
+
 def Ez_spiral_subs(w_n, k_n, r_n, z_n,Bc_n,kc_n,z0_n):
     w, k, r, z,Bc,kc,z0 = symbols('w k r z Bc kc z0')
     f = Ez_spiral_sym()
     t = f.subs(r,r_n).subs(z,z_n).subs(Bc,Bc_n).subs(kc,kc_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n)
     return t.evalf()
+
 
 
 if __name__ == '__main__':
