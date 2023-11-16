@@ -279,7 +279,7 @@ def get_spiral_fields():
     Ez_spiral = w / k * rg_3d * derivative_Atheta_z
     from symbolic import  Ez_spiral_sym,Ez_spiral_subs,Er_spiral_subs
     Ez_ss = Ez_spiral_sym()
-    ezt = Ez_spiral_subs(w,k,r_linspace[1],z_linspace[1],Bc,kc,z0)
+    ezt = Ez_spiral_subs(w,k,r_linspace[1],z_linspace[1],Bc,kc,z0)-Ez_spiral[1][1][1]
     ert = Er_spiral_subs(w, k, r_linspace[1], z_linspace[1], Bc, kc, z0,B_0)-Er_spiral[1][1][1]
 
     Br_spiral, Btheta_spiral, Bz_spiral = compute_B(zeros, zeros, zeros, derivative_fs_r, derivative_fs_theta,
