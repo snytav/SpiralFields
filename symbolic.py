@@ -3,6 +3,11 @@ from sympy.plotting import plot
 # x,n, p=var('x,n, p')
 from sympy.functions import besseli
 #from spiral_field import kc,Bc
+import numpy as np
+
+B_0 = 100
+beta = np.array([0, -0.575, 0, -0.000799, 0, -0.00000156])
+
 
 def Atheta_2_sym():
     m = 1
@@ -124,15 +129,29 @@ def Ez_spiral_subs(w_n, k_n, r_n, z_n,Bc_n,kc_n,z0_n):
     t = f.subs(r,r_n).subs(z,z_n).subs(Bc,Bc_n).subs(kc,kc_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n)
     return t.evalf()
 
+def phi_s():
+    Cm = Array([0, -0.575e2, 0, -0.000799e2, 0, -0.00000156e2])
+    m, th, k, z, r, i = symbols('m th k z r i')
+    y = Sum(Cm[m] * sin(m * (th - k * z) * besseli(m, m * k * r)), (m, 1, 5))
+    return y
+
+def phi_s_subs(th_n,r_n,z_n,k_n):
+    m, th, k, z, r, i = symbols('m th k z r i')
+    f = phi_s()
+    t = f.subs(th,th_n).subs(k,k_n).subs(z,z_n).subs(r,r_n).evalf()
+    return t
+
+
 
 
 if __name__ == '__main__':
-    p1 = plot(besselj(0, x), (x, -20, 20), line_color='b', title=' $' + st + '$', show=False)
-    p2 = plot(besselj(1, x), (x, -20, 20), line_color='g', show=False)
-    p3 = plot(besselj(2, x), (x, -20, 20), line_color='r', show=False)
-    p4 = plot(besselj(3, x), (x, -20, 20), line_color='c', show=False)
-    p1.extend(p2)
-    p1.extend(p3)
-    p1.extend(p4)
-    p1.show()
+
+    # #p1 = plot(besselj(0, x), (x, -20, 20), line_color='b', title=' $' + st + '$', show=False)
+    # p2 = plot(besselj(1, x), (x, -20, 20), line_color='g', show=False)
+    # p3 = plot(besselj(2, x), (x, -20, 20), line_color='r', show=False)
+    # p4 = plot(besselj(3, x), (x, -20, 20), line_color='c', show=False)
+    # p1.extend(p2)
+    # p1.extend(p3)
+    # p1.extend(p4)
+    # p1.show()
     qq = 0

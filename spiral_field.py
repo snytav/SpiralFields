@@ -147,6 +147,10 @@ def get_spiral_fields():
     for m in range(1, 6):
         fs += Cm[m] * np.sin(m * (thetag_3d - k * zg_3d)) * iv(m, m * k * rg_3d)
 
+    from symbolic import phi_s,phi_s_subs
+    f = phi_s_subs(theta_linspace[1],r_linspace[1],z_linspace[1],k)
+    qq = 0
+
     derivative_fs_r = 0.0
     for m in range(1, 6):
         multiplier1 = Cm[m] * np.sin(m * (thetag_3d - k * zg_3d))
