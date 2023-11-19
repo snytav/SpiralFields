@@ -129,6 +129,20 @@ def Ez_spiral_subs(w_n, k_n, r_n, z_n,Bc_n,kc_n,z0_n):
     t = f.subs(r,r_n).subs(z,z_n).subs(Bc,Bc_n).subs(kc,kc_n).subs(z0,z0_n).subs(w,w_n).subs(k,k_n)
     return t.evalf()
 
+def pps():
+    Cm = 100*Array([0, -0.575, 0, -0.000799, 0, -0.00000156])
+    m, th, k, z, r, i = symbols('m th k z r i')
+    y = Cm[m] * sin(m * (th - k * z) * besseli(m, m * k * r))
+    return y
+
+def pps_subs(th_n,r_n,z_n,k_n,m_n):
+    m, th, k, z, r, i = symbols('m th k z r i')
+    f = phi_s()
+    t = f.subs(m,m_n).subs(th,th_n).subs(k,k_n).subs(z,z_n).subs(r,r_n).evalf()
+    return t
+
+
+
 def phi_s():
     Cm = Array([0, -0.575e2, 0, -0.000799e2, 0, -0.00000156e2])
     m, th, k, z, r, i = symbols('m th k z r i')
@@ -141,6 +155,28 @@ def phi_s_subs(th_n,r_n,z_n,k_n):
     t = f.subs(th,th_n).subs(k,k_n).subs(z,z_n).subs(r,r_n).evalf()
     return t
 
+def d_phi_s_d_r():
+    f = phi_s()
+    r = symbols('r')
+    y = diff(f,r)
+    return y
+
+def d_phi_s_d_th():
+    f = phi_s()
+    th = symbols('th')
+    y = diff(f,th)
+    return y
+
+def d_phi_s_d_z():
+    f = phi_s()
+    z = symbols('z')
+    y = diff(f,z)
+    return y
+
+def d_phi_s_subs(f,th_n,r_n,z_n,k_n):
+    m, th, k, z, r, i = symbols('m th k z r i')
+    t = f.subs(th,th_n).subs(k,k_n).subs(z,z_n).subs(r,r_n).evalf()
+    return t
 
 
 

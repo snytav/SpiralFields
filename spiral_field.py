@@ -144,8 +144,13 @@ def get_spiral_fields():
     ath_num = Atheta_spiral_subs(Ath_sp,kc,Bc,r_linspace[1],z_linspace[1],z0)
     fs = np.zeros((50, 60, 50))
 
+    from symbolic import pps,pps_subs
     for m in range(1, 6):
         fs += Cm[m] * np.sin(m * (thetag_3d - k * zg_3d)) * iv(m, m * k * rg_3d)
+        t_n = Cm[m] * np.sin(m * (thetag_3d - k * zg_3d)) * iv(m, m * k * rg_3d)
+        t = pps_subs(theta_linspace[1],r_linspace[1],z_linspace[1],k,m)
+        dt = t-t_n[1][1][1]
+        qq = 0
 
     from symbolic import phi_s,phi_s_subs
     f = phi_s_subs(theta_linspace[1],r_linspace[1],z_linspace[1],k)
@@ -161,6 +166,11 @@ def get_spiral_fields():
             multiplier2 += ((m * k / 2) ** (2 * i + m)) * (2 * i + m) * (rg_3d ** (2 * i + m - 1)) / denom
 
         derivative_fs_r += multiplier1 * multiplier2
+
+    from symbolic import d_phi_s_d_r,d_phi_s_subs
+    fs_r111_t = d_phi_s_subs(d_phi_s_d_r(),theta_linspace[1],r_linspace[1],z_linspace[1],k)
+    fs_r111_n = derivative_fs_r[1][1][1]
+    d111 = fs_r111_n-fs_r111_t
 
     derivative_fs_theta = 0.0
     for m in range(1, 6):
