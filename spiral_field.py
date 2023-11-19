@@ -175,11 +175,21 @@ def get_spiral_fields():
     derivative_fs_theta = 0.0
     for m in range(1, 6):
         derivative_fs_theta = derivative_fs_theta + Cm[m] * np.cos(m * (thetag_3d - k * zg_3d)) * m * iv(m,
+
                                                                                                          m * k * rg_3d)
+    from symbolic import d_phi_s_d_th
+    fs_th111_t = d_phi_s_subs(d_phi_s_d_th(), theta_linspace[1], r_linspace[1], z_linspace[1], k)
+    fs_th111_n = derivative_fs_theta[1][1][1]
+    d111th = fs_th111_n - fs_th111_t
 
     derivative_fs_z = 0.0
     for m in range(1, 6):
         derivative_fs_z = derivative_fs_z - Cm[m] * m * k * np.cos(m * (thetag_3d - k * zg_3d)) * iv(m, m * k * rg_3d)
+
+    from symbolic import d_phi_s_d_th,d_phi_s_d_z
+    fs_z111_t = d_phi_s_subs(d_phi_s_d_z(), theta_linspace[1], r_linspace[1], z_linspace[1], k)
+    fs_z111_n = derivative_fs_z[1][1][1]
+    d111z = fs_z111_n - fs_z111_t
 
     derivative_fc_r = 0.0
     multiplier = 0.0
